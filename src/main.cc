@@ -1,8 +1,25 @@
+#include "cli.h"
+
+#include <SFML/Graphics/Image.hpp>
+#include <SFML/System/Vector2.hpp>
+
+#include <cstdlib>
+#include <filesystem>
 #include <iostream>
 
-int main() {
+int main(int argc, char* argv[]) {
 
-  std::cout << "Hello, World!" << std::endl;
+  GaussFilt::Cli cli(argc, argv);
 
-  return 0;
+  const std::filesystem::path& inputImagePath =
+      cli.getParser().get<std::filesystem::path>("--input");
+
+  const bool& gui = cli.getParser().get<bool>("--gui");
+
+  if (gui) {
+    std::cout << "GUI mode is not implemented yet." << std::endl;
+    return EXIT_SUCCESS;
+  }
+
+  return EXIT_SUCCESS;
 }
