@@ -1,3 +1,3 @@
-# Guassfil
+# GaussFilt
 
-Play with Guassian filter!
+Play with Gaussian filter!
