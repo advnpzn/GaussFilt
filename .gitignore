@@ -5,3 +5,8 @@ build/
 *.so
 *.o
 *.a
+
+*.dll
+*.exe
+
+config.h

@@ -1,0 +1,9 @@
+// config.h.in
+#ifndef CONFIG_H
+#define CONFIG_H
+
+// Define version and description
+#define PROJECT_VERSION "@PROJECT_VERSION@"
+#define PROJECT_DESCRIPTION "@PROJECT_DESCRIPTION@"
+
+#endif
