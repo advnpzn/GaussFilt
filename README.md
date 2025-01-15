@@ -3,9 +3,9 @@
 Play with Gaussian Blur!
 
 <p align="left">
-<img src="res/normal.png" alt="normal" width="300" />
-<img src="res/grayscale.png" alt="grayscale" width="300" />
-<img src="res/blur.png" alt="grayscale" width="300" />
+<img src="res/normal.png" alt="normal" width="250" />
+<img src="res/grayscale.png" alt="grayscale" width="250" />
+<img src="res/blur.png" alt="grayscale" width="250" />
 </p>
 
 ## Usage
