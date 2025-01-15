@@ -38,7 +38,7 @@ std::vector<std::vector<float>> generate2DGaussianKernel(int kernelSize,
   float sum{};
   int radius = kernelSize / 2;
 
-  // Generate Kernal values
+  // Generate Kernel values
   for (int y = -radius; y <= radius; ++y) {
     for (int x = -radius; x <= radius; ++x) {
       float value = std::exp(-(x * x + y * y) / (2 * sigma * sigma));

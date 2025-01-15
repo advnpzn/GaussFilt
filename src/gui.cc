@@ -120,7 +120,7 @@ void GaussFilt::Gui::grayscaleWidget(sf::Image& tempImage) {
 
   ImGui::SliderFloat("Weight (R)", &v1, 0.0f, 1.0f);
   ImGui::SliderFloat("Weight (G)", &v2, 0.0f, 1.0f);
-  ImGui::SliderFloat("Wright (B)", &v3, 0.0f, 1.0f);
+  ImGui::SliderFloat("Weight (B)", &v3, 0.0f, 1.0f);
 
   Filter::convertToGrayScale(tempImage, v1, v2, v3);
 }
