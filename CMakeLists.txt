@@ -18,19 +18,20 @@ configure_file(
 find_package(ImGui-SFML CONFIG REQUIRED)
 find_package(argparse CONFIG REQUIRED)
 
-file(GLOB SOURCES "src/*.cc" "src/*.h")
+file(GLOB SOURCES "src/*.cc")
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${CONFIG})
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     "${CMAKE_SOURCE_DIR}/config"
-)
-
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    "${CMAKE_SOURCE_DIR}/include"
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     ImGui-SFML::ImGui-SFML
     argparse::argparse
+)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 )
