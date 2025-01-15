@@ -2,21 +2,22 @@
 
 Play with Gaussian filter!
 <p align="left">
-<img src="res/normal.png" alt="normal" width="300" />
-<img src="res/grayscale.png" alt="grayscale" width="300" />
+<img src="res/normal.png" alt="normal" width="210" />
+<img src="res/grayscale.png" alt="grayscale" width="210" />
+<img src="res/blur.png" alt="grayscale" width="210" />
 </p>
-
-The actual Gaussian Filter is not implemented yet.
-
-So far, what you can do,
-
-- GrayScale
 
 ## Usage
 
 ```bash
-./gaussfilt --help
+./gaussfilt --input <path/to/image> --gui
 ```
+
+### TO
+
+- CLI implementation
+- Batch processing
+- Performance Improvement
 
 ## Building
 
