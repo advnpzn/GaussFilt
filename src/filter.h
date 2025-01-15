@@ -1,11 +1,12 @@
-#include <vector>
+#ifndef FILTER_H
+#define FILTER_H
 
-namespace GaussFilt {
-class GaussianFilter {
- public:
-  GaussianFilter(int kernelSize, double sigma);
-  const std::vector<std::vector<double>> getKernel();
+#include <SFML/Graphics/Image.hpp>
 
- private:
-};
-}  // namespace GaussFilt
+namespace Filter {
+void convertToGrayScale(sf::Image& image, float v1, float v2, float v3);
+void modifyRGB(sf::Image& image, int r, int g, int b);
+void guassianFilter();
+}  // namespace Filter
+
+#endif  // FILTER_H

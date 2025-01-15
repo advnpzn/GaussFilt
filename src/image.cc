@@ -1,5 +1,7 @@
 #include "image.h"
 
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Image.hpp>
 #include <SFML/System/Vector2.hpp>
 
 #include <filesystem>
@@ -11,29 +13,16 @@ bool GaussFilt::ImageHandler::loadFromFile(
     return false;
   }
 
-  convertToGrayscale();
-
   return true;
 }
 
 bool GaussFilt::ImageHandler::saveToFile(
     const std::filesystem::path& outputImagePath) {
 
-  sf::Vector2 size = image.getSize();
-
-  for (unsigned int y = 0; y < size.y; ++y) {
-    for (unsigned int x = 0; x < size.x; ++x) {
-
-      double pixelValue = imageData[x][y] * 255.0;
-      sf::Color pixel(pixelValue, pixelValue, pixelValue);
-      image.setPixel(x, y, pixel);
-    }
-  }
-
   return image.saveToFile(outputImagePath);
 }
 
-void GaussFilt::ImageHandler::convertToGrayscale() {
+void GaussFilt::ImageHandler::convertToGrayscale(float v1, float v2, float v3) {
 
   sf::Vector2 size = image.getSize();
   imageData.resize(size.x, std::vector<double>(size.y));
@@ -43,8 +32,18 @@ void GaussFilt::ImageHandler::convertToGrayscale() {
 
       sf::Color pixel = image.getPixel(x, y);
 
-      double grayScale = 0.299 * pixel.r + 0.587 * pixel.g + 0.114 * pixel.b;
+      // Luminosity method (https://en.wikipedia.org/wiki/Grayscale#Luma_coding_in_video_systems)
+      double grayScale = v1 * pixel.r + v2 * pixel.g + v3 * pixel.b;
+
       image.setPixel(x, y, sf::Color(grayScale, grayScale, grayScale));
     }
   }
+}
+
+sf::Vector2u GaussFilt::ImageHandler::getSize() {
+  return image.getSize();
+}
+
+sf::Image& GaussFilt::ImageHandler::getImage() {
+  return image;
 }
