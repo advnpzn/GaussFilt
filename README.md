@@ -14,7 +14,7 @@ Play with Gaussian Blur!
 ./gaussfilt --input <path/to/image> --gui
 ```
 
-### TO
+### TO DO
 
 - CLI implementation
 - Batch processing
