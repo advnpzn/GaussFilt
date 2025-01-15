@@ -1,6 +1,7 @@
 # GaussFilt
 
-Play with Gaussian filter!
+Play with Gaussian Blur!
+
 <p align="left">
 <img src="res/normal.png" alt="normal" width="210" />
 <img src="res/grayscale.png" alt="grayscale" width="210" />
