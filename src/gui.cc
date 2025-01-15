@@ -20,11 +20,7 @@
 
 GaussFilt::Gui::Gui(sf::RenderWindow& renderWindow,
                     argparse::ArgumentParser& parser)
-    : renderWindow(renderWindow),
-      currentMode(DEFAULT),
-      v1(0.299f),
-      v2(0.587f),
-      v3(0.114f) {
+    : renderWindow(renderWindow), currentMode(DEFAULT) {
 
   const std::filesystem::path& inputImagePath =
       parser.get<std::filesystem::path>("--input");
@@ -65,6 +61,9 @@ void GaussFilt::Gui::draw() {
   ImGui::SetNextWindowSize(ImVec2(300, 150), ImGuiCond_FirstUseEver);
   ImGui::SetNextWindowPos(ImVec2(image.getSize().x - (300 + 10), 10),
                           ImGuiCond_FirstUseEver);
+
+  sf::Image tempImage = image.getImage();
+
   ImGui::Begin("Controls");
   ImGui::BeginDisabled();
   ImGui::RadioButton("RGB", (int*)&currentMode, RGB);
@@ -75,21 +74,12 @@ void GaussFilt::Gui::draw() {
   ImGui::RadioButton("Gaussian", (int*)&currentMode, GAUSSIAN);
   ImGui::NewLine();
 
-  sf::Image tempImage = image.getImage();
-
   if (currentMode == RGB) {
-    ImGui::SliderInt("R", &r, 0, 255);
-    ImGui::SliderInt("G", &g, 0, 255);
-    ImGui::SliderInt("B", &b, 0, 255);
-
-    Filter::modifyRGB(tempImage, r, g, b);
-
+    rgbWidget(tempImage);
   } else if (currentMode == GRAYSCALE) {
-    ImGui::SliderFloat("Weight (R)", &v1, 0.0f, 5.0f);
-    ImGui::SliderFloat("Weight (G)", &v2, 0.0f, 5.0f);
-    ImGui::SliderFloat("Wright (B)", &v3, 0.0f, 5.0f);
-
-    Filter::convertToGrayScale(tempImage, v1, v2, v3);
+    grayscaleWidget(tempImage);
+  } else if (currentMode == GAUSSIAN) {
+    gaussianWidget(tempImage);
   }
   texture.loadFromImage(tempImage);
   ImGui::End();
@@ -107,4 +97,43 @@ void GaussFilt::Gui::display() {
 
 void GaussFilt::Gui::shutdown() {
   ImGui::SFML::Shutdown();
+}
+
+void GaussFilt::Gui::rgbWidget(sf::Image& tempImage) {
+
+  static int r = 0;
+  static int g = 0;
+  static int b = 0;
+
+  ImGui::SliderInt("R", &r, 0, 255);
+  ImGui::SliderInt("G", &g, 0, 255);
+  ImGui::SliderInt("B", &b, 0, 255);
+
+  Filter::modifyRGB(tempImage, r, g, b);
+}
+
+void GaussFilt::Gui::grayscaleWidget(sf::Image& tempImage) {
+  static float v1 = 0.299f;
+  static float v2 = 0.587f;
+  static float v3 = 0.114f;
+
+  ImGui::SliderFloat("Weight (R)", &v1, 0.0f, 1.0f);
+  ImGui::SliderFloat("Weight (G)", &v2, 0.0f, 1.0f);
+  ImGui::SliderFloat("Wright (B)", &v3, 0.0f, 1.0f);
+
+  Filter::convertToGrayScale(tempImage, v1, v2, v3);
+}
+
+void GaussFilt::Gui::gaussianWidget(sf::Image& tempImage) {
+  static int kernelSize = 3;
+  static float sigma = 1.0f;
+
+  ImGui::SliderInt("Kernel Size", &kernelSize, 3, 15);
+  ImGui::SliderFloat("Sigma", &sigma, 0.1f, 10.0f);
+
+  if (kernelSize % 2 == 0) {
+    kernelSize++;
+  }
+
+  Filter::guassianBlur(tempImage, kernelSize, sigma);
 }

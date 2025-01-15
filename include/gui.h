@@ -5,6 +5,7 @@
 
 #include <imgui-SFML.h>
 #include <imgui.h>
+#include <SFML/Graphics/Image.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -30,14 +31,6 @@ class Gui {
   GaussFilt::ImageHandler image;
   GaussFilt::ImageHandler imageHandler;
 
-  float v1;
-  float v2;
-  float v3;
-
-  int r;
-  int g;
-  int b;
-
   enum Mode { DEFAULT, RGB, GRAYSCALE, GAUSSIAN };
 
   Mode currentMode;
@@ -45,6 +38,10 @@ class Gui {
   void draw();
   void display();
   void clear();
+
+  void rgbWidget(sf::Image& tempImage);
+  void grayscaleWidget(sf::Image& tempImage);
+  void gaussianWidget(sf::Image& tempImage);
 };
 }  // namespace GaussFilt
 
