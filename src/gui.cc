@@ -97,6 +97,7 @@ void GaussFilt::Gui::display() {
 
 void GaussFilt::Gui::shutdown() {
   ImGui::SFML::Shutdown();
+  renderWindow.close();
 }
 
 void GaussFilt::Gui::rgbWidget(sf::Image& tempImage) {

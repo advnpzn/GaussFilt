@@ -17,7 +17,8 @@ namespace GaussFilt {
 class Gui {
  public:
   Gui(sf::RenderWindow& window, argparse::ArgumentParser& parser);
-  ~Gui() = default;
+
+  ~Gui() { shutdown(); }
 
   void start();
   void shutdown();
